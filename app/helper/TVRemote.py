@@ -8,6 +8,7 @@
 import socket
 import time
 import unicodedata
+# import cec
 
 class BSeriesSender(object): #implements KeyCodeSender {
 	"""Create a BSeriesSender object for remote control of TV."""
@@ -129,7 +130,6 @@ class BSeriesSender(object): #implements KeyCodeSender {
 			sock.connect((self.host, msg_port))
 			sock.send(full_soap_request.encode('utf-8'))
 			read = sock.recv(1024)
-		#	print("\n\n Reader \n\n" + read)
  			sock.close()
 		except socket.error, e:
 			error_found = True

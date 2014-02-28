@@ -5,10 +5,9 @@
 #   Date: 21-Fev-2014
 #   Info: Communicate with devices via HTTP GET / POST requests
 from app import app
-from flask import render_template
+from flask import render_template, request
 import datetime
-from .helper import TXNR509
-from .helper import TVRemote
+from .helper import *
 
 myonkyo = TXNR509.Txnr509(host="192.168.1.11")
 mysamsung = TVRemote.BSeriesSender(host="192.168.1.15")
@@ -29,13 +28,24 @@ def index():
 	]
 	return render_template("index.html", title = 'Home', user = user, posts = posts)
 
-@app.route('/SMS/<string:datestr>/<string:timestr>/<string:rnumber>/<string:rname>/<string:snumber>/<string:sname>/<string:message>', methods = ['GET'])
-def sms_to_tv(datestr, timestr, rnumber, rname, snumber, sname, message):
-	#format date and time
-	datestr = datetime.datetime.strptime(datestr, "%d-%m-%Y")
-	timestr = datetime.datetime.strptime(timestr, "%H.%M")
-	error_found = mysamsung.post_sms(datestr.strftime("%Y-%m-%d"), timestr.strftime("%H:%M:%S"), rnumber, rname, snumber, sname, message)
-	return error_found
+# @app.route('/SMS/<string:datestr>/<string:timestr>/<string:rnumber>/<string:rname>/<string:snumber>/<string:sname>/<string:message>', methods = ['GET'])
+# def sms_to_tv(datestr, timestr, rnumber, rname, snumber, sname, message):
+@app.route('/tv/sms', methods = ['GET','POST'])
+def sms_to_tv():
+	if request.method == 'GET':
+		return render_template("sms.html", title = 'SMS')
+	elif request.method == 'POST':
+		#format date and time
+		rdate = datetime.datetime.strptime(request.form['rdate'], "%d-%m-%Y")
+		rtime = datetime.datetime.strptime(request.form['rtime'], "%H.%M")
+		error_found = mysamsung.post_sms(rdate.strftime("%Y-%m-%d"), \
+			                             rtime.strftime("%H:%M:%S"), \
+			                             request.form['rnumber'], \
+			                             request.form['rname'], \
+			                             request.form['snumber'], \
+			                             request.form['sname'], \
+			                             request.form['mbody'])
+		return 'Not OK' if error_found else 'OK'
 
 @app.route('/ONKYO/radio/<string:freq>', methods = ['GET'])
 def power_radio(freq):
@@ -43,6 +53,11 @@ def power_radio(freq):
 	return 'Ok'
 
 @app.route('/ONKYO/set_input/<string:input_data>', methods = ['GET'])
-def set_input(input_data):
+def set_onkyo_input(input_data):
 	myonkyo.command('input-selector {inp}'.format(inp=input_data))
+	return 'Ok'
+
+@app.route('/ONKYO/power/<string:power_data>', methods = ['GET'])
+def set_onkyo_power(power_data):
+	myonkyo.power(power_data)
 	return 'Ok'
