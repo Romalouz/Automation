@@ -4,6 +4,6 @@
 #   Author: Romain Gigault
 #   Date: 21-Fev-2014
 #   Info: Communicate with devices via HTTP GET / POST requests 
-from app import app
+from media import media
 
-app.run(host='0.0.0.0', port=80, debug=True)
+media.run(host='0.0.0.0', port=3000, debug=True)
