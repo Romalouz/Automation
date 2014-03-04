@@ -8,4 +8,15 @@ from flask import Flask, jsonify
 
 media = Flask(__name__)
 
-from media import views
+# Configurations
+#app.config.from_object('config')
+
+# Import a module / component using its blueprint handler variable
+from media.receiver.controllers import receiver as receiver_module
+from media.tv.controllers import tv as tv_module
+
+# Register blueprint(s)
+media.register_blueprint(receiver_module)
+media.register_blueprint(tv_module)
+# app.register_blueprint(xyz_module)
+# ..
