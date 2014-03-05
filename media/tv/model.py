@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 #   Title: samsungremote.py
 #   Author: Romain Gigault
+#   Title: manager.py
+#   Package: Tv
 #   Date: 07-Fev-2014
 #   Info: To send remote control commands to the Samsung B series tv over LAN
  
@@ -10,8 +12,8 @@ import time
 import unicodedata
 # import cec
 
-class BSeriesSender(object): #implements KeyCodeSender {
-	"""Create a BSeriesSender object for remote control of TV."""
+class TvModel(object): #implements KeyCodeSender {
+	"""Create a TvModel object for remote control of TV."""
 	def __init__(self, host, port=2345):
 		"""Provide TV ip to create remote object """
 		self.host = host
@@ -130,7 +132,7 @@ class BSeriesSender(object): #implements KeyCodeSender {
 			sock.connect((self.host, msg_port))
 			sock.send(full_soap_request.encode('utf-8'))
 			read = sock.recv(1024)
- 			sock.close()
+			sock.close()
 		except socket.error, e:
 			error_found = True
 			raise TVError(e[1], 'post_sms')
@@ -207,7 +209,7 @@ class BSeriesSender(object): #implements KeyCodeSender {
 			sock.send(full_soap_request.encode('utf-8'))
 			read = sock.recv(1024)
 			print("\n\n Reader \n\n" + read)
- 			sock.close()
+			sock.close()
 		except socket.error, e:
 			raise TVError(e[1], 'post_call')
 		finally:
@@ -291,7 +293,7 @@ class BSeriesSender(object): #implements KeyCodeSender {
 			sock.send(full_soap_request.encode('utf-8'))
 			read = sock.recv(1024)
 			print("\n\n Reader \n\n" + read)
- 			sock.close()
+			sock.close()
 		except socket.error, e:
 			raise TVError(e[1], 'post_reminder')
 		finally:

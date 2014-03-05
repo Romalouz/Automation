@@ -8,10 +8,7 @@
 from media import media
 from flask import render_template, request, Blueprint
 import datetime
-from media.tv.model import BSeriesSender
-import media.tv.manager
-
-mysamsung = BSeriesSender(host="192.168.1.15")
+from media.tv.manager import TvManager
 
 # Define the blueprint: 'tv', set its url prefix: app.url/tv
 tv = Blueprint('tv', __name__, url_prefix='/tv')
@@ -24,7 +21,7 @@ def sms_to_tv():
 		#format date and time
 		rdate = datetime.datetime.strptime(request.form['rdate'], "%d-%m-%Y")
 		rtime = datetime.datetime.strptime(request.form['rtime'], "%H.%M")
-		error_found = mysamsung.post_sms(rdate.strftime("%Y-%m-%d"), \
+		error_found = TvManager().post_sms(rdate.strftime("%Y-%m-%d"), \
 			                             rtime.strftime("%H:%M:%S"), \
 			                             request.form['rnumber'], \
 			                             request.form['rname'], \

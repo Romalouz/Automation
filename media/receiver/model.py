@@ -4,21 +4,14 @@
 #   Author: Romain Gigault
 #   Date: 15-Jan-2014
 #   Info: Interface for Onkyo Receiver
-
-
-#Command for test purpose
-#import os
-#os.chdir('/home/romain/Project/Automation/app/helper/')
-#import TXNR509
-#a = TXNR509.Txnr509()
 import eiscp
 
-class Txnr509(eiscp.eISCP):
-	"""Create a TXNR509 object for remote control."""
+class ReceiverModel(eiscp.eISCP):
+	"""Create a ReceiverModel object for remote control."""
 
 	def __init__(self,host):
-		"""Create Txnr509 object with host IP provided """
-		super(Txnr509, self).__init__(host=host)
+		"""Create ReceiverModel object with host IP provided """
+		super(ReceiverModel, self).__init__(host=host)
 		self.power_status = 'unknown'
 		#TODO add test that receiver exists in network
 

@@ -9,7 +9,7 @@ from flask import Flask, jsonify
 media = Flask(__name__)
 
 # Configurations
-#app.config.from_object('config')
+media.config.from_object('media.config')
 
 # Import a module / component using its blueprint handler variable
 from media.receiver.controllers import receiver as receiver_module
