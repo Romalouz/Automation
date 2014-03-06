@@ -61,7 +61,7 @@ class TvModel(object): #implements KeyCodeSender {
 			self.send_key('BTN_' + char)
 			time.sleep(0.1)
 	
-	def post_sms(self, date='2014-02-12', time='22:20:33', rnumber='0674767730', rname='Romain', snumber='0617382221', sname='Lolo', message='Bonjour !'):
+	def post_sms(self, date='2014-02-12', time='22:20:33', rnumber='0612345678', rname='Receiver', snumber='0612345678', sname='Sender', message='Bonjour !'):
 		"""This routine is used to send a message of type SMS to the TV"""
 		xmldata1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + \
 		"<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">" + \
