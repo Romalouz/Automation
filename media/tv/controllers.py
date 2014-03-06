@@ -29,3 +29,17 @@ def sms_to_tv():
 			                             request.form['sname'], \
 			                             request.form['mbody'])
 		return 'Not OK' if error_found else 'OK'
+
+@tv.route('/power/<string:pow>', methods = ['GET'])
+def power_tv(pow):
+    if TvManager().power(pow):
+        return "Ok"
+    else:
+        return "Nok"
+
+@tv.route('/get_power', methods = ['GET'])
+def get_tv_power():
+    if TvManager().get_power_status():
+        return "TV is on"
+    else:
+        return "TV is off"

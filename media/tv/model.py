@@ -10,7 +10,6 @@
 import socket
 import time
 import unicodedata
-# import cec
 
 class TvModel(object): #implements KeyCodeSender {
 	"""Create a TvModel object for remote control of TV."""
@@ -19,6 +18,7 @@ class TvModel(object): #implements KeyCodeSender {
 		self.host = host
 		self.port = port
 		self.set_command_list()
+		self.power_status = 'unknown'
 
 	def __exit__(self):
 		"""Reset host and port number"""

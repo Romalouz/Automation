@@ -3,3 +3,8 @@ DEBUG = True
 RECEIVER_IP = "192.168.1.11"
 #TV related configuration
 TV_IP = "192.168.1.15"
+#CEC related configuration
+CEC_ADAPTER = "RPI"
+CEC_TV_ADDRESS = 0
+CEC_RECEIVER_ADDRESS = 5
+CEC_PS3_ADDRESS = 4
