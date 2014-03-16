@@ -1,14 +1,13 @@
-<html>
-  <head>
-    {% if title %}
-    <title>{{title}} - Automation</title>
-    {% else %}
-    <title>Automation</title>
-    {% endif %}
-  </head>
-  <body>
-    <div>HomeAutomation: <a href="/index">Home</a></div>
-    <hr>
-    {% block content %}{% endblock %}
-  </body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% block metas %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+{% if title %}
+    {% block title %}{{title}}{% endblock %}
+{% endif %}
+{% block content %}
+    <div class="navbar navbar-fixed-top">HomeAutomation: <a href="/">Home</a></div>
+    <div class="container"/>
+        {% block app %}{% endblock %}
+    </div>
+{% endblock %}

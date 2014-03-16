@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #   Title: manager.py
 #   Package: Receiver
-#   Author: Romain Gigault
+#   Author: Romain Gigault 
 from media import media
 from media.receiver.model import ReceiverModel
 

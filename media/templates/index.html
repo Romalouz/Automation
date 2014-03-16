@@ -1,11 +1,9 @@
+{% from "macros.html" import device_power_prop %}
 {% extends "base.html" %}
-{% block content %}
-<h1>Welcome in your Home Automation !</h1>
-<div>Power status of Tv is {{ devices.tv.power_status }}</div>
-<div>Power status of Receiver is {{ devices.receiver.power_status }}</div>
-{#
-{% for device_prop in device.keys() %}
-<div><p>Power status of {{device_prop.name}} is: <b>{{device_prop.power_status}}</b></p></div>
-{% endfor %}
-#}
+{% block app %}
+    <h1 class="text-center">Welcome in your Home Automation !</h1>
+    <div class='row text-center'>
+        {{ device_power_prop("Tv.png", devices.tv.power_status, "on")}}
+        {{ device_power_prop("Receiver.png", devices.receiver.power_status, "on")}}
+    </div>
 {% endblock %}

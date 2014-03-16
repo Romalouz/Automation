@@ -3,10 +3,12 @@
 #   Title: __init__.py
 #   Author: Romain Gigault
 #   Date: 21-Fev-2014
-#   Info: Communicate with devices via HTTP GET / POST requests 
+#   Info: Communicate with devices via HTTP GET / POST requests  
 from flask import Flask, jsonify
+from flask_bootstrap import Bootstrap
 
 media = Flask(__name__)
+Bootstrap(media)
 
 # Configurations
 media.config.from_object('media.config')
