@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Hi, {{user.nickname}}!</h1>
-{% for post in posts %}
-<div><p>{{post.author.nickname}} says: <b>{{post.body}}</b></p></div>
+<h1>Welcome in your Home Automation !</h1>
+<div>Power status of Tv is {{ devices.tv.power_status }}</div>
+<div>Power status of Receiver is {{ devices.receiver.power_status }}</div>
+{#
+{% for device_prop in device.keys() %}
+<div><p>Power status of {{device_prop.name}} is: <b>{{device_prop.power_status}}</b></p></div>
 {% endfor %}
+#}
 {% endblock %}

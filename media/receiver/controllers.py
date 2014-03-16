@@ -13,21 +13,6 @@ from media.receiver.manager import ReceiverManager
 # Define the blueprint: 'receiver', set its url prefix: app.url/receiver
 receiver = Blueprint('receiver', __name__, url_prefix='/receiver')
 
-@receiver.route('/index')
-def index():
-	user = { 'nickname': 'Miguel' } # fake user
-	posts = [ # fake array of posts
-	    { 
-	        'author': { 'nickname': 'John' }, 
-	        'body': 'Beautiful day in Portland!' 
-	    },
-	    { 
-	        'author': { 'nickname': 'Susan' }, 
-	        'body': 'The Avengers movie was so cool!' 
-	    }
-	]
-	return render_template("index.html", title = 'Home', user = user, posts = posts)
-
 @receiver.route('/radio/<string:freq>', methods = ['GET'])
 def power_radio(freq):
 	ReceiverManager().set_fm(freq)
@@ -47,3 +32,8 @@ def set_onkyo_power(power_data):
 def set_onkyo_volume(vol):
 	ReceiverManager().set_volume(vol)
 	return 'Ok'
+
+@receiver.route('/ps3/<string:pow>', methods = ['GET'])
+def set_onkyo_ps3(pow):
+	ReceiverManager().power_ps3(pow)
+	return 'PS3 Ok'
