@@ -1,9 +1,13 @@
-{% from "macros.html" import device_power_prop %}
+{% import "macros.html" as tools %}
 {% extends "base.html" %}
 {% block app %}
     <h1 class="text-center">Welcome in your Home Automation !</h1>
     <div class='row text-center'>
-        {{ device_power_prop("Tv.png", devices.tv.power_status, "on")}}
-        {{ device_power_prop("Receiver.png", devices.receiver.power_status, "on")}}
+        {{ tools.device_power_prop("Tv.png", devices.tv.power_status, "tv")}}
+        {{ tools.device_power_prop("Receiver.png", devices.receiver.power_status, "receiver")}}
     </div>
+{% endblock %}
+{% block myscripts %}
+    {{ tools.device_power_script('tv')}}
+    {{ tools.device_power_script('receiver')}}
 {% endblock %}

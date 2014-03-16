@@ -110,7 +110,7 @@ class ReceiverModel(eiscp.eISCP):
         except:
             raise ReceiverError('Query power failed', 'get_power_status')
         if power != 'on' or power != 'standby':
-            power = 'unknown'
+            power = 'blabla'
         return power
 
     def set_message(self, timeout=0.1):

@@ -38,8 +38,5 @@ def power_tv(pow):
         return "Nok"
 
 @tv.route('/get_power', methods = ['GET'])
-def get_tv_power():
-    if TvManager().get_power_status():
-        return "TV is on"
-    else:
-        return "TV is off"
+def get_power():
+    return TvManager().current_power_status()

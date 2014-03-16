@@ -1,4 +1,4 @@
-{% macro device_power_prop(img_filename, property, property_test) %}
+{% macro device_power_prop(img_filename, property, device) %}
 <div class='col-md-6'>
     <img src="{{ url_for('static', filename='images/' + img_filename) }}" class='img-rounded' />
     <div class='text-center'>
@@ -9,13 +9,33 @@
         <div class='row'>
             <div class='col-md-6'>Power</div>
             <div class='col-md-6'>
-                {% if property == property_test %}
-                <span class="label label-success">On</span>
-                {% else %}
-                <span class="label label-danger">Standby</span>
-                {% endif %}
+                <button type="button" id="toggle-power-btn-{{ device }}" data-loading-text="Processing..." class="btn btn-primary">
+                    {{ property }}
+                </button>
             </div>
         </div>
     </div>
 </div>
+{% endmacro %}
+
+{% macro device_power_script(device) %}
+<script>
+    $(document).ready(function () {
+        var buttonid = $('#toggle-power-btn-{{device}}')
+        buttonid.click(function () {
+            var btn = $(this)
+            btn.button('loading')
+            $.ajax({
+                url: "{{url_for(device + '.get_power')}}",
+                method: 'get',
+                success: function (data) {
+                    buttonid.removeClass('btn-primary')
+                    buttonid.addClass('btn-success');
+                }
+            }).always(function () {
+                btn.button('reset')
+            });
+        });
+    });
+</script>
 {% endmacro %}

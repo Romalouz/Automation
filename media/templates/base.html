@@ -11,3 +11,7 @@
         {% block app %}{% endblock %}
     </div>
 {% endblock %}
+{% block scripts %}
+    {{super()}}
+    {% block myscripts %}{% endblock %}
+{% endblock %}
