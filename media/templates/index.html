@@ -8,6 +8,8 @@
     </div>
 {% endblock %}
 {% block myscripts %}
-    {{ tools.device_power_script('tv')}}
-    {{ tools.device_power_script('receiver')}}
+    {{ tools.device_power_script('tv', 'on', 'success')}}
+    {{ tools.device_power_script('tv', 'standby', 'danger')}}
+    {{ tools.device_power_script('receiver', 'on', 'success')}}
+    {{ tools.device_power_script('receiver', 'standby', 'danger')}}
 {% endblock %}

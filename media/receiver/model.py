@@ -104,14 +104,13 @@ class ReceiverModel(eiscp.eISCP):
     def get_power_status(self):
         """ Query device to get current power status and return result """
         try:
-            #TODO uncomment
-            power = ''
-            #power = self.command('system-power query')
+            power = tuple()
+            power = self.command('system-power query')
         except:
             raise ReceiverError('Query power failed', 'get_power_status')
-        if power != 'on' or power != 'standby':
+        if power[1] != 'on' or power[1] != 'standby':
             power = 'blabla'
-        return power
+        return power[1]
 
     def set_message(self, timeout=0.1):
         self.message = self.get(timeout=timeout)

@@ -37,6 +37,6 @@ def power_tv(pow):
     else:
         return "Nok"
 
-@tv.route('/get_power', methods = ['GET'])
+@tv.route('/power', methods = ['GET'])
 def get_power():
     return TvManager().current_power_status()

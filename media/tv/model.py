@@ -48,14 +48,11 @@ class TvModel(object):
 
     def get_power_status(self):
         """Return TV power status True -> on and False -> Standby """
-        #TODO uncomment 
-        time.sleep(5)
-        power = 'unknown'
-        #if self.init_cec():
-        #    if cec.Device(media.config.get("CEC_TV_ADDRESS")).is_on():
-        #        power = 'on'
-        #    else:
-        #        power = 'standby'
+        if self.init_cec():
+            if cec.Device(media.config.get("CEC_TV_ADDRESS")).is_on():
+                power = 'on'
+            else:
+                power = 'standby'
         return power
 
     def send_key(self, key):
