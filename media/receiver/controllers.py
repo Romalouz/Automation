@@ -15,29 +15,34 @@ receiver = Blueprint('receiver', __name__, url_prefix='/receiver')
 
 @receiver.route('/radio/<string:freq>', methods = ['GET'])
 def power_radio(freq):
-	ReceiverManager().set_fm(freq)
-	return 'Ok'
+    ReceiverManager().set_fm(freq)
+    return 'Ok'
 
 @receiver.route('/set_input/<string:input_data>', methods = ['GET'])
 def set_onkyo_input(input_data):
-	ReceiverManager().command('input-selector {inp}'.format(inp=input_data))
-	return 'Ok'
+    ReceiverManager().command('input-selector {inp}'.format(inp=input_data))
+    return 'Ok'
 
 @receiver.route('/power/<string:power_data>', methods = ['GET'])
-def set_onkyo_power(power_data):
-	ReceiverManager().power(power_data)
-	return 'Ok'
+def power(power_data):
+    data = ReceiverManager().power(power_data)
+    if data == power_data:
+        return data
+    else:
+        return "Not Ok"
 
 @receiver.route('/power/', methods = ['GET'])
 def get_power():
-    return ReceiverManager().power_status
+    receiver = ReceiverManager()
+    receiver.read_status()
+    return receiver.power_status
 
 @receiver.route('/volume/<int:vol>', methods = ['GET'])
 def set_onkyo_volume(vol):
-	ReceiverManager().set_volume(vol)
-	return 'Ok'
+    ReceiverManager().set_volume(vol)
+    return 'Ok'
 
 @receiver.route('/ps3/<string:pow>', methods = ['GET'])
 def set_onkyo_ps3(pow):
-	ReceiverManager().power_ps3(pow)
-	return 'PS3 Ok'
+    ReceiverManager().power_ps3(pow)
+    return 'PS3 Ok'

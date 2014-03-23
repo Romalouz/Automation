@@ -5,7 +5,7 @@
         <div class='row'>
             <div class='col-md-6'>
                 <h4>Power Status:</h4>
-                <img id="power-light" src="{{ url_for('static', filename='images/red.png') }}" class='img-circled' />
+                <img id="power-light-{{device}}" src="{{ url_for('static', filename='images/red.png') }}" class='img-circled' />
             </div>
             <div class='col-md-6'>
                 <div class="btn-group" data-toggle="buttons">
@@ -27,12 +27,12 @@
 <script>
     $(document).ready(function () {
         var buttonid = $('#toggle-power-btn-{{status}}-{{device}}')
-        var powerlight = $('#power-light')
+        var powerlight = $('#power-light-{{device}}')
         buttonid.click(function () {
             var btn = $(this)
             btn.button('loading')
             $.ajax({
-                url: "{{url_for(device + '.get_power')}}",
+                url: "{{url_for(device + '.power', power_data=status)}}",
                 method: 'get',
                 success: function (data) {
                     if (data == '{{status}}') {

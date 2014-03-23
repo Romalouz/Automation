@@ -12,11 +12,11 @@ class TvManager(TvModel):
 
     def __init__(self):
         self.power_status = 'unknown'
-        #super(TvManager, self).__init__(host=media.config.get("TV_IP"))
+        super(TvManager, self).__init__(host=media.config.get("TV_IP"))
 
     def current_power_status(self):
         """Return power status of TV """
-        super(TvManager, self).__init__(host=media.config.get("TV_IP"))
+        #super(TvManager, self).__init__(host=media.config.get("TV_IP"))
         return self.get_power_status()
 
     def read_status(self):

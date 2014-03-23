@@ -43,14 +43,14 @@ class ReceiverModel(eiscp.eISCP):
     # Device control method
     def power(self, pwr):
         """Used to set device on or off"""
-        if pwr == 'on':
-            result = self.command('system-power on')
-            self.assert_status(result, 'system-power', 'on')
-        elif pwr == 'off' or pwr == 'standby':
-            result = self.command('system-power standby')
-            self.assert_status(result, 'system-power', 'standby')
+        error = False
+        if pwr == 'on' or pwr == 'standby':
+            result = self.command('system-power {power}'.format(power=pwr))
+            if not(self.assert_status(result, 'system-power', '{power}'.format(power=pwr))):
+                error = True
         else:
             raise ReceiverError("Value {val} is not a valid power argument".format(val=pwr), 'power')
+        if (not(error)): return pwr
 
     def set_volume(self, value=30):
         """Set device volume to value """
@@ -108,19 +108,23 @@ class ReceiverModel(eiscp.eISCP):
             power = self.command('system-power query')
         except:
             raise ReceiverError('Query power failed', 'get_power_status')
-        if power[1] != 'on' or power[1] != 'standby':
-            power = 'blabla'
-        return power[1]
+        if power[1] != 'on' and power[1] != 'standby':
+            return 'unknown'
+        else:
+            return power[1]
 
     def set_message(self, timeout=0.1):
         self.message = self.get(timeout=timeout)
 
     def assert_status(self, result, command, status):
+        asserted = False
         if result[0] == command and result[1] == status:
             self.set_message()
+            asserted = True
         else:
             raise ReceiverError('Device was not set {stat} via {cmd}' \
                    .format(stat=status,cmd=command), 'assert_status') 
+        return asserted
 
     def get_message(self):
         print(self.message)
