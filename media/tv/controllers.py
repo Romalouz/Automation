@@ -19,7 +19,7 @@ def sms_to_tv():
 		return render_template("sms.html", title = 'SMS')
 	elif request.method == 'POST':
 		#format date and time
-		rdate = datetime.datetime.strptime(request.form['rdate'], "%d-%m-%Y")
+		rdate = datetime.datetime.strptime(request.form['rdate'], "%m-%d-%Y")
 		rtime = datetime.datetime.strptime(request.form['rtime'], "%H.%M")
 		error_found = TvManager().post_sms(rdate.strftime("%Y-%m-%d"), \
 			                             rtime.strftime("%H:%M:%S"), \
