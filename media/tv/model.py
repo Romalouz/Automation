@@ -36,7 +36,7 @@ class TvModel(object):
         tv = CecSingleton.CecSingleton().get_device(media.config.get("CEC_TV_OSD"))
         if power == "on":
             tv.power_on()
-            if tv.is_on() and receiver.is_on():
+            if tv.is_on():
                 command_success = True
         elif power == "standby":
             tv.standby()

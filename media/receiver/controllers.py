@@ -38,7 +38,7 @@ def get_power():
     return receiver.power_status
 
 @receiver.route('/volume/<int:vol>', methods = ['GET'])
-def set_onkyo_volume(vol):
+def volume(vol):
     ReceiverManager().set_volume(vol)
     return 'Ok'
 

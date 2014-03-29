@@ -2,6 +2,10 @@
 {% block metas %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endblock %}
+{% block styles %}
+    {{super()}}
+    {% block mystyles %}{% endblock %}
+{% endblock %}
 {% if title %}
     {% block title %}{{title}}{% endblock %}
 {% endif %}

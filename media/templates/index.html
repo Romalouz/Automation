@@ -1,5 +1,9 @@
 {% import "macros.html" as tools %}
 {% extends "base.html" %}
+{% block mystyles %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='slider/css/slider.css')}}" />
+   <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='slider/less/slider.less')}}" />-->
+{% endblock %}
 {% block app %}
     <h1 class="text-center">Welcome in your Home Automation !</h1>
     <div class='row text-center'>
@@ -14,27 +18,36 @@
             {{ tools.device_power_prop("Receiver.png", "red", "receiver")}}
         {% endif %}
     </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h4>Master Volume</h4>
+            <span class="tooltip"></span>
+            <div id="slider" data-slider-min="15" data-slider-max="75" 
+                 data-slider-step="1" data-slider-value="25" 
+                 data-slider-selection="after">
+            </div>
+            <span class="volume"></span>
+        </div>
+    </div>
 {% endblock %}
 {% block myscripts %}
     {{ tools.device_power_script('tv', 'on', 'success')}}
     {{ tools.device_power_script('tv', 'standby', 'danger')}}
     {{ tools.device_power_script('receiver', 'on', 'success')}}
     {{ tools.device_power_script('receiver', 'standby', 'danger')}}
-    <!--<script>
+    <script src="{{ url_for('static', filename='slider/js/bootstrap-slider.js') }}"></script>
+    <script>
         $(document).ready(function () {
-            var powerlighttv = $('#power-light-tv')
-            $.ajax({
-            url: "{{url_for('tv.get_power')}}",
-            method: 'get',
-            success: function (data) {
-                if (data == 'on') {
-                    powerlighttv.attr('src', "{{ url_for('static', filename='images/green.png') }}");
-                }
-                else if (data == 'standby') {
-                    powerlighttv.attr('src', "{{ url_for('static', filename='images/red.png') }}");
-                }
-            }
+            $("#slider").slider()
+                .on('slideStop', function (ev) {
+                    val = $('#slider').data('slider').getValue()
+                    $.ajax({
+                        url: "/receiver/volume/" + val,
+                        method: 'get',
+                        //success: function (data) {
+                        //}
+                    });
+            });
         });
-    });
-    </script>--> 
+    </script> 
 {% endblock %}
