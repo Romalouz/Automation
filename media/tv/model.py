@@ -9,7 +9,7 @@
 import socket
 import time
 import unicodedata
-import cec
+from media.cec import CecSingleton
 #TODO remove config from model
 from media import media
 
@@ -21,45 +21,37 @@ class TvModel(object):
         self.host = host
         self.port = port
         self.set_command_list()
-        self.cec_initiated = False
 
     def __exit__(self):
         """Reset host and port number"""
         self.host = 0
         self.port = 0
-        print "Exiting TvModel"
+        #print "Exiting TvModel"
 
     # Device control method
     def power(self, power):
         """Use to power on or standby tv and receiver at once
         Requires power = on or power = standby"""
         command_success = False
-        if not(self.cec_initiated):
-            success = self.init_cec()
-        if success:
-            tv = cec.Device(media.config.get("CEC_TV_ADDRESS"))
-            receiver = cec.Device(media.config.get("CEC_RECEIVER_ADDRESS"))
-            if power == "on":
-                tv.power_on()
-                receiver.power_on()
-                if tv.is_on() and receiver.is_on():
-                   command_success = True
-            elif power == "standby":
-                tv.standby()
-                receiver.standby()
-                if not(tv.is_on()) and not(receiver.is_on()):
-                    command_success = True
-            else:
-                 command_success = False
-            if command_success: return power
+        tv = CecSingleton.CecSingleton().get_device(media.config.get("CEC_TV_OSD"))
+        if power == "on":
+            tv.power_on()
+            if tv.is_on() and receiver.is_on():
+                command_success = True
+        elif power == "standby":
+            tv.standby()
+            if not(tv.is_on()):
+                command_success = True
+        else:
+            command_success = False
+        if command_success: return power
 
     def get_power_status(self):
         """Return TV power status True -> on and False -> Standby """
-        if self.init_cec():
-            if cec.Device(media.config.get("CEC_TV_ADDRESS")).is_on():
-                power = 'on'
-            else:
-                power = 'standby'
+        if CecSingleton.CecSingleton().get_device(media.config.get("CEC_TV_OSD")).is_on():
+            power = 'on'
+        else:
+            power = 'standby'
         return power
 
     def send_key(self, key):
@@ -341,16 +333,6 @@ class TvModel(object):
             sock = None
 
     #Helper method
-    def init_cec(self):
-        """Used before each call to cec librairy"""
-        #TODO need to fix cec init
-        adapter = cec.list_adapters()
-        if adapter.count(media.config.get("CEC_ADAPTER")) >= 1:
-            cec.init()
-            print "Initiating cec ....."
-            self.cec_initiated = True
-        return self.cec_initiated
-
     def set_command_list(self):
         """List of available commands for Samsung B series TV"""
         self.commands = dict( \
