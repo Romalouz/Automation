@@ -3,8 +3,16 @@
 {% block app %}
     <h1 class="text-center">Welcome in your Home Automation !</h1>
     <div class='row text-center'>
-        {{ tools.device_power_prop("Tv.png", devices.tv.power_status, "tv")}}
-        {{ tools.device_power_prop("Receiver.png", devices.receiver.power_status, "receiver")}}
+        {% if devices.tv.power_status == 'on' %}
+            {{ tools.device_power_prop("Tv.png", "green", "tv")}}
+        {% elif devices.tv.power_status == 'standby' %}
+            {{ tools.device_power_prop("Tv.png", "red", "tv")}}
+        {% endif %}
+        {% if devices.receiver.power_status == 'on' %}
+            {{ tools.device_power_prop("Receiver.png", "green", "receiver")}}
+        {% elif devices.receiver.power_status == 'standby' %}
+            {{ tools.device_power_prop("Receiver.png", "red", "receiver")}}
+        {% endif %}
     </div>
 {% endblock %}
 {% block myscripts %}
@@ -12,21 +20,21 @@
     {{ tools.device_power_script('tv', 'standby', 'danger')}}
     {{ tools.device_power_script('receiver', 'on', 'success')}}
     {{ tools.device_power_script('receiver', 'standby', 'danger')}}
-    <script>
+    <!--<script>
         $(document).ready(function () {
-            var powerlight = $('#power-light-tv')
+            var powerlighttv = $('#power-light-tv')
             $.ajax({
             url: "{{url_for('tv.get_power')}}",
             method: 'get',
             success: function (data) {
                 if (data == 'on') {
-                    powerlight.attr('src', "{{ url_for('static', filename='images/green.png') }}");
+                    powerlighttv.attr('src', "{{ url_for('static', filename='images/green.png') }}");
                 }
                 else if (data == 'standby') {
-                    powerlight.attr('src', "{{ url_for('static', filename='images/red.png') }}");
+                    powerlighttv.attr('src', "{{ url_for('static', filename='images/red.png') }}");
                 }
             }
         });
     });
-    </script> 
+    </script>--> 
 {% endblock %}

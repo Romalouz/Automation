@@ -1,11 +1,11 @@
-{% macro device_power_prop(img_filename, property, device) %}
+{% macro device_power_prop(img_filename, color, device) %}
 <div class='col-md-6'>
     <img src="{{ url_for('static', filename='images/' + img_filename) }}" class='img-rounded' />
     <div class='text-center'>
         <div class='row'>
             <div class='col-md-6'>
                 <h4>Power Status:</h4>
-                <img id="power-light-{{device}}" src="{{ url_for('static', filename='images/red.png') }}" class='img-circled' />
+                <img id="power-light-{{device}}" src="{{ url_for('static', filename='images/'+ color + '.png') }}" class='img-circled' />
             </div>
             <div class='col-md-6'>
                 <div class="btn-group" data-toggle="buttons">
