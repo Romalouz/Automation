@@ -55,7 +55,7 @@ class ReceiverModel(eiscp.eISCP):
     def set_volume(self, value=30):
         """Set device volume to value """
         try:
-            assert(15<value<75)
+            assert(15<=value<=75)
         except AssertionError:
             raise ReceiverError("Value {val} is not in volume range".format(val=value), 'set_volume')
         except:
