@@ -42,6 +42,10 @@ def volume(vol):
     ReceiverManager().set_volume(vol)
     return 'Ok'
 
+@receiver.route('/volume/', methods = ['GET'])
+def get_volume():
+    return ReceiverManager().get_volume()
+
 @receiver.route('/ps3/<string:pow>', methods = ['GET'])
 def set_onkyo_ps3(pow):
     ReceiverManager().power_ps3(pow)

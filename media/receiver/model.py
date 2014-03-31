@@ -67,6 +67,20 @@ class ReceiverModel(eiscp.eISCP):
             raise ReceiverError('Device volume was not set to {val}' \
                    .format(val=value), 'set_volume') 
 
+    def get_volume(self):
+        """Query Device to get system volume"""
+        result = tuple()
+        try:
+            result = self.command('master-volume query')
+        except:
+            raise ReceiverError("Command query volume failed", 'get_volume')
+        finally:
+            try:
+                if len(result[1]) > 0:
+                    return str(int(result[1],16))
+            except:
+                raise ReceiverError("Volume data was bad and not sent back", 'get_volume')
+
     def power_ps3(self, power=''):
         """ Start or stop PS3 based on power (pwron or pwroff) """
         if power == 'pwron' or power == 'pwroff':

@@ -12,6 +12,7 @@ class ReceiverManager(ReceiverModel):
     def __init__(self):
         super(ReceiverManager, self).__init__(host=media.config.get("RECEIVER_IP"))
         self.power_status = 'unknown'
+        self.volume = '0'
         self.name = 'Onkyo TX-NR509'#self.receiver.info
 
     def current_power_status(self):
@@ -22,3 +23,4 @@ class ReceiverManager(ReceiverModel):
     def read_status(self):
         """Return current status of Receiver"""
         self.power_status = self.current_power_status()
+        self.volume = self.get_volume()

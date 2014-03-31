@@ -23,7 +23,7 @@
             <h4>Master Volume</h4>
             <span class="tooltip"></span>
             <div id="slider" data-slider-min="15" data-slider-max="75" 
-                 data-slider-step="1" data-slider-value="25" 
+                 data-slider-step="1" data-slider-value="{{devices.receiver.volume}}" 
                  data-slider-selection="after">
             </div>
             <span class="volume"></span>
@@ -39,14 +39,14 @@
     <script>
         $(document).ready(function () {
             $("#slider").slider()
-                .on('slideStop', function (ev) {
-                    val = $('#slider').data('slider').getValue()
-                    $.ajax({
-                        url: "/receiver/volume/" + val,
-                        method: 'get',
-                        //success: function (data) {
-                        //}
-                    });
+            .on('slideStop', function (ev) {
+                val = $('#slider').data('slider').getValue()
+                $.ajax({
+                    url: "/receiver/volume/" + val,
+                    method: 'get',
+                    //success: function (data) {
+                    //}
+                });
             });
         });
     </script> 
