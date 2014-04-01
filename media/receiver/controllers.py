@@ -23,6 +23,14 @@ def set_onkyo_input(input_data):
     ReceiverManager().command('input-selector {inp}'.format(inp=input_data))
     return 'Ok'
 
+@receiver.route('/av_input/<string:input_data>', methods = ['GET'])
+def set_av_input(input_data):
+    if ReceiverManager().set_audio(input_data):
+        return 'Ok'
+    else:
+        return "Not ok"
+
+
 @receiver.route('/power/<string:power_data>', methods = ['GET'])
 def power(power_data):
     data = ReceiverManager().power(power_data)

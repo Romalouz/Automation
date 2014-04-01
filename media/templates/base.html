@@ -10,7 +10,11 @@
     {% block title %}{{title}}{% endblock %}
 {% endif %}
 {% block content %}
-    <div class="navbar navbar-fixed-top">HomeAutomation: <a href="/">Home</a></div>
+    <div class="navbar navbar-fixed-top">HomeAutomation: 
+        <a href="/">Home</a>
+        <a href="{{url_for('receiver.set_av_input',input_data='tuner')}}">Radio</a>
+        <a href="{{url_for('receiver.set_av_input',input_data='aux')}}">Aux</a>
+    </div>
     <div class="container"/>
         {% block app %}{% endblock %}
     </div>
