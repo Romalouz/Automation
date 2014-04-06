@@ -28,9 +28,11 @@
             </div>
         </div>
     </nav>
-    <div class="alert alert-warning alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>Warning!</strong> Better check yourself, you're not looking too good.
+    <div class="span4 pull-right">
+        <div id="alertDiv" class="alert alert-success fade">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Success!</strong> Control was applied successfully.
+        </div>
     </div>
     <div class="container"/>
         {% block app %}{% endblock %}
@@ -48,6 +50,7 @@
     //@ sourceURL=base.js
     $(document).ready(function () {
         var linkid = $("a[id^='audio_']")
+//        var divAlert = document.getElementById("alertDiv")
         linkid.click(function () {
             var link = $(this);
             var formData = { input: link.context.id.replace("audio_", "") };
@@ -56,6 +59,10 @@
                 method: 'post',
                 data: formData,
                 success: function (data) {
+                    $(".alert").removeClass("in").show();
+                    $(".alert").delay(200).addClass("in").fadeOut(2000);
+                    //divAlert.className =
+                    //    divAlert.className.replace( /(?:^|\s)hidden(?!\S)/g , '' )
                 }
             })
         });
