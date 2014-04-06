@@ -10,11 +10,24 @@
     {% block title %}{{title}}{% endblock %}
 {% endif %}
 {% block content %}
-    <div class="navbar navbar-fixed-top">HomeAutomation: 
-        <a href="/">Home</a>
-        <a href="{{url_for('receiver.set_av_input',input_data='tuner')}}">Radio</a>
-        <a href="{{url_for('receiver.set_av_input',input_data='aux')}}">Aux</a>
-    </div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Index</a>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Receiver <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a id="audio_tuner">Radio</a></li>
+                            <li><a id="audio_tv">Tv</a></li>
+                            <li><a id="audio_aux">Auxilliaire</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container"/>
         {% block app %}{% endblock %}
     </div>
@@ -27,4 +40,22 @@
 {% block scripts %}
     {{super()}}
     {% block myscripts %}{% endblock %}
+    <script>
+    //@ sourceURL=base.js
+    $(document).ready(function () {
+        var linkid = $("a[id^='audio_']")
+        linkid.click(function () {
+            var link = $(this);
+            var id = link.context.id.replace("audio_","");
+            $.ajax({
+                url: "/receiver/av_input/"+id,
+                method: 'get',
+                success: function (data) {
+                    alert(data)
+                }
+            })
+        });
+    });
+</script>
+
 {% endblock %}
