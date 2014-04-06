@@ -23,9 +23,9 @@ def set_onkyo_input(input_data):
     ReceiverManager().command('input-selector {inp}'.format(inp=input_data))
     return 'Ok'
 
-@receiver.route('/av_input/<string:input_data>', methods = ['GET'])
-def set_av_input(input_data):
-    if ReceiverManager().set_audio(input_data):
+@receiver.route('/av_input/', methods = ['POST'])
+def set_av_input():
+    if ReceiverManager().set_audio(request.form['input']):
         return 'Ok'
     else:
         return "Not ok"

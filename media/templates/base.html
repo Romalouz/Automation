@@ -46,12 +46,12 @@
         var linkid = $("a[id^='audio_']")
         linkid.click(function () {
             var link = $(this);
-            var id = link.context.id.replace("audio_","");
+            var formData = { input: link.context.id.replace("audio_", "") };
             $.ajax({
-                url: "/receiver/av_input/"+id,
-                method: 'get',
+                url: "/receiver/av_input/",
+                method: 'post',
+                data: formData,
                 success: function (data) {
-                    alert(data)
                 }
             })
         });
