@@ -29,19 +29,19 @@
         var buttonid = $('#toggle-power-btn-{{status}}-{{device}}')
         var powerlight = $('#power-light-{{device}}')
         buttonid.click(function () {
-            var btn = $(this)
-            btn.button('loading')
+            var btn = $(this);
+            btn.button('loading');
+            var formData = { powerdata: '{{status}}' };
             $.ajax({
-                url: "{{url_for(device + '.power', power_data=status)}}",
-                method: 'get',
+                url: "{{url_for(device + '.power')}}",
+                method: 'POST',
+                data: formData,
                 success: function (data) {
-                    if (data == '{{status}}') {
-                        buttonid.addClass('disabled');
-                    }
-                    if (data == 'on') {
+                    console.log(data.power)
+                    if (data.power == 'on') {
                         powerlight.attr('src', "{{ url_for('static', filename='images/green.png') }}");
                     }
-                    else if (data == 'standby') {
+                    else if (data.power == 'standby') {
                         powerlight.attr('src', "{{ url_for('static', filename='images/red.png') }}");
                     }
                 }

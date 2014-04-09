@@ -22,16 +22,14 @@ class TvManager(TvModel):
         command_success = False
         tv = CecSingleton.CecSingleton().get_device(media.config.get("CEC_TV_OSD"))
         if power == "on":
-            tv.power_on()
-            if tv.is_on():
+            if tv.power_on():
                 command_success = True
         elif power == "standby":
-            tv.standby()
-            if not(tv.is_on()):
+            if tv.standby():
                 command_success = True
         else:
             command_success = False
-        if command_success: return power
+        return command_success
 
     def get_power_status(self):
         """Return TV power status True -> on and False -> Standby """

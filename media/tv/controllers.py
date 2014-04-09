@@ -6,7 +6,7 @@
 #   Date: 21-Fev-2014
 #   Info: Communicate with receiver devices via HTTP GET / POST requests
 from media import media
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, jsonify
 import datetime
 from media.tv.manager import TvManager
 
@@ -30,14 +30,16 @@ def sms_to_tv():
 			                             request.form['mbody'])
 		return 'Not OK' if error_found else 'OK'
 
-@tv.route('/power/<string:power_data>', methods = ['GET'])
-def power(power_data):
-    data = TvManager().power(power_data)
-    if data == power_data:
-        return data
-    else:
-        return "Not Ok"
+#@tv.route('/power/<string:power_data>', methods = ['GET'])
+#def power(power_data):
 
-@tv.route('/power', methods = ['GET'])
-def get_power():
-    return TvManager().current_power_status()
+@tv.route('/power', methods = ['GET', 'POST'])
+def power():
+    if request.method == 'GET':
+        return TvManager().current_power_status()
+    elif request.method == 'POST':
+        data = TvManager().power(request.form['powerdata'])
+        if data:
+            return jsonify(power = request.form['powerdata'])
+        else:
+            return jsonify(power = 'unknown')

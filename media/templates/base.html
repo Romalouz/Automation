@@ -56,7 +56,7 @@
             var formData = { input: link.context.id.replace("audio_", "") };
             $.ajax({
                 url: "/receiver/av_input/",
-                method: 'post',
+                method: 'POST',
                 data: formData,
                 success: function (data) {
                     $(".alert").removeClass("in").show();
