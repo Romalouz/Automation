@@ -36,10 +36,12 @@ def sms_to_tv():
 @tv.route('/power', methods = ['GET', 'POST'])
 def power():
     if request.method == 'GET':
-        return TvManager().current_power_status()
-    elif request.method == 'POST':
-        data = TvManager().power(request.form['powerdata'])
-        if data:
-            return jsonify(power = request.form['powerdata'])
+        resp_data = 'unknown'
+        if TvManager().is_on():
+            resp_data = 'on'
         else:
-            return jsonify(power = 'unknown')
+            resp_data = 'standby'
+    elif request.method == 'POST':
+        if TvManager().power(request.form['powerdata']):
+            resp_data = request.form['powerdata']
+    return jsonify(power = resp_data)

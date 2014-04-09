@@ -33,18 +33,16 @@ class TvManager(TvModel):
 
     def get_power_status(self):
         """Return TV power status True -> on and False -> Standby """
-        if CecSingleton.CecSingleton().get_device(media.config.get("CEC_TV_OSD")).is_on():
-            power = 'on'
-        else:
-            power = 'standby'
-        return power
+        return CecSingleton.CecSingleton().get_device(media.config.get("CEC_TV_OSD")).is_on()
 
-
-    def current_power_status(self):
+    def is_on(self):
         """Return power status of TV """
         #super(TvManager, self).__init__(host=media.config.get("TV_IP"))
         return self.get_power_status()
 
     def read_status(self):
         """Return current status of TV"""
-        self.power_status = self.current_power_status()
+        if self.is_on():
+            self.power_status = 'on'
+        else:
+            self.power_status = 'standby'

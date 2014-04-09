@@ -37,7 +37,6 @@
                 method: 'POST',
                 data: formData,
                 success: function (data) {
-                    console.log(data.power)
                     if (data.power == 'on') {
                         powerlight.attr('src', "{{ url_for('static', filename='images/green.png') }}");
                     }
