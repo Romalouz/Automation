@@ -6,7 +6,7 @@
 #   Date: 21-Fev-2014
 #   Info: Communicate with receiver devices via HTTP GET / POST requests
 from media import media
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, jsonify
 import datetime
 from media.receiver.manager import ReceiverManager
 
@@ -31,19 +31,18 @@ def set_av_input():
         return "Not ok"
 
 
-@receiver.route('/power/<string:power_data>', methods = ['GET'])
-def power(power_data):
-    data = ReceiverManager().power(power_data)
-    if data == power_data:
-        return data
-    else:
-        return "Not Ok"
-
-@receiver.route('/power/', methods = ['GET'])
-def get_power():
-    receiver = ReceiverManager()
-    receiver.read_status()
-    return receiver.power_status
+@receiver.route('/power/', methods = ['GET', 'POST'])
+def power():
+    resp_data = 'unknown'
+    if request.method == 'GET':
+        if ReceiverManager().is_on():
+            resp_data = 'on'
+        else:
+            resp_data = 'standby'
+    elif request.method == 'POST':
+        if ReceiverManager().power(request.form['powerdata']):
+            resp_data = request.form['powerdata']
+    return jsonify(power = resp_data)
 
 @receiver.route('/volume/<int:vol>', methods = ['GET'])
 def volume(vol):

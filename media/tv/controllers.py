@@ -35,8 +35,8 @@ def sms_to_tv():
 
 @tv.route('/power', methods = ['GET', 'POST'])
 def power():
+    resp_data = 'unknown'
     if request.method == 'GET':
-        resp_data = 'unknown'
         if TvManager().is_on():
             resp_data = 'on'
         else:

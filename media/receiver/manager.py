@@ -17,14 +17,14 @@ class ReceiverManager(ReceiverModel):
         self.volume = '0'
         self.name = 'Onkyo TX-NR509'#self.receiver.info
 
-    def current_power_status(self):
+    def is_on(self):
         """Return power status of receiver """
         #super(ReceiverManager, self).__init__(host=media.config.get("RECEIVER_IP"))
-        return self.get_power_status()
+        return CecSingleton.CecSingleton().get_device(media.config.get("CEC_RECEIVER_OSD")).is_on()
 
     def read_status(self):
         """Return current status of Receiver"""
-        self.power_status = self.current_power_status()
+        self.power_status = self.get_power_status()
         self.volume = self.get_volume()
 
     # Device control method

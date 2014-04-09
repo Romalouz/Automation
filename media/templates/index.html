@@ -33,8 +33,8 @@
 {% block myscripts %}
     {{ tools.device_power_script('tv', 'on', 'success')}}
     {{ tools.device_power_script('tv', 'standby', 'danger')}}
-    {#{ tools.device_power_script('receiver', 'on', 'success')}#}
-    {#{ tools.device_power_script('receiver', 'standby', 'danger')}#}
+    {{ tools.device_power_script('receiver', 'on', 'success')}}
+    {{ tools.device_power_script('receiver', 'standby', 'danger')}}
     <script src="{{ url_for('static', filename='slider/js/bootstrap-slider.js') }}"></script>
     <script>
         $(document).ready(function () {
