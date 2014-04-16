@@ -25,10 +25,11 @@ def set_onkyo_input(input_data):
 
 @receiver.route('/av_input/', methods = ['POST'])
 def set_av_input():
-    if ReceiverManager().set_audio(request.form['input']):
-        return 'Ok'
-    else:
-        return "Not ok"
+    if request.method == 'POST':
+        if ReceiverManager().set_audio(request.form['input']):
+            return 'Ok'
+        else:
+            return "Not ok"
 
 
 @receiver.route('/power/', methods = ['GET', 'POST'])
