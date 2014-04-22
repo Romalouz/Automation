@@ -33,6 +33,19 @@ def sms_to_tv():
 #@tv.route('/power/<string:power_data>', methods = ['GET'])
 #def power(power_data):
 
+@tv.route('/call', methods = ['POST'])
+def call_to_tv():
+	#format date and time post_call(self, date='2014-02-12', time='22:20:33', rnumber='0674767730', rname='Romain', snumber='0617382221', sname='Lolo')
+	date = datetime.datetime.strptime(request.form['date'], "%m-%d-%Y")
+	time = datetime.datetime.strptime(request.form['time'], "%H.%M")
+	error_found = TvManager().post_call(date.strftime("%Y-%m-%d"), \
+			                            time.strftime("%H:%M:%S"), \
+			                            request.form['rnumber'], \
+			                            request.form['rname'], \
+			                            request.form['snumber'], \
+			                            request.form['sname'])
+	return 'Not OK' if error_found else 'OK'
+
 @tv.route('/power', methods = ['GET', 'POST'])
 def power():
     resp_data = 'unknown'

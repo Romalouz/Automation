@@ -179,9 +179,6 @@ class TvModel(object):
         "</s:Body>" + \
         "</s:Envelope>"
 
-        #Remove accentuation of message
-        message = unicodedata.normalize('NFKD', message).encode('ASCII', 'ignore')
-
         #Create Header for Message
         header = "POST /PMR/control/MessageBoxService HTTP/1.0\r\n" + \
         "Content-Type: text/xml; charset=\"utf-8\"\r\n" + \
@@ -212,7 +209,7 @@ class TvModel(object):
             sock.connect((self.host, msg_port))
             sock.send(full_soap_request.encode('utf-8'))
             read = sock.recv(1024)
-            print("\n\n Reader \n\n" + read)
+            # print("\n\n Reader \n\n" + read)
             sock.close()
         except socket.error, e:
             raise TVError(e[1], 'post_call')
