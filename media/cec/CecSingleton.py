@@ -71,3 +71,6 @@ class CecSingleton(object):
 
     def __setattr__(self, name):
         return setattr(self.instance, name)
+
+#Init CEC at startup
+CecSingleton().init_cec()

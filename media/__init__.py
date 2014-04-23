@@ -23,3 +23,6 @@ media.register_blueprint(receiver_module)
 media.register_blueprint(tv_module)
 media.register_blueprint(app_module)
 
+#initiate CEC
+#from media.cec import CecSingleton
+
