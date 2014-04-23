@@ -7,12 +7,14 @@ import time
 from media import media
 from media.tv.model import TvModel
 from media.cec import CecSingleton
+from media.andro.manager import AndroManager
 
 class TvManager(TvModel):
     """Called every time we need to access Tv Device"""
 
     def __init__(self):
         self.power_status = 'unknown'
+        self.andro_power_message = "TvPower =:= "
         super(TvManager, self).__init__(host=media.config.get("TV_IP"))
 
     # Device control method
@@ -29,6 +31,10 @@ class TvManager(TvModel):
                 command_success = True
         else:
             command_success = False
+        if command_success: 
+            AndroManager().send_message(self.andro_power_message + power)
+        else:
+            AndroManager().send_message(self.andro_power_message + "unknown")
         return command_success
 
     def get_power_status(self):

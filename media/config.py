@@ -24,3 +24,10 @@ CEC_RECEIVER_AI_TV = 7
 CEC_RECEIVER_AI_POR = 8
 CEC_RECEIVER_AI_NET = 9
 CEC_RECEIVER_AI_USB = 10
+AUTOREMOTE_KEY = ""
+AUTOREMOTE_MESSAGE_FILTER = ""
+
+try:
+   from secret_settings import *
+except ImportError:
+   pass

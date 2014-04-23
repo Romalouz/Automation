@@ -6,6 +6,7 @@
 from media import media
 from media.receiver.model import ReceiverModel
 from media.cec import CecSingleton
+from media.andro.manager import AndroManager
 
 
 class ReceiverManager(ReceiverModel):

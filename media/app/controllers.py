@@ -9,6 +9,7 @@ from media import media
 from flask import render_template, request, Blueprint
 from media.receiver.manager import ReceiverManager
 from media.tv.manager import TvManager
+from media.andro.manager import AndroManager
 
 # Define the blueprint: 'app', set its url prefix: app.url/
 app = Blueprint('app', __name__, url_prefix='/')
@@ -22,3 +23,9 @@ def index():
     tv.read_status()
     devices = {"receiver" : receiver.__dict__, "tv" : tv.__dict__ }
     return render_template("index.html", title = 'Home', devices = devices)
+
+@app.route('test', methods = ['POST'])
+def test():
+    #Used for test purpose
+    AndroManager().send_message(request.form['message'])
+    return "Done"
