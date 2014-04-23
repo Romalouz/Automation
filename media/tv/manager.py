@@ -14,7 +14,6 @@ class TvManager(TvModel):
 
     def __init__(self):
         self.power_status = 'unknown'
-        self.andro_power_message = "TvPower =:= "
         super(TvManager, self).__init__(host=media.config.get("TV_IP"))
 
     # Device control method
@@ -32,9 +31,9 @@ class TvManager(TvModel):
         else:
             command_success = False
         if command_success: 
-            AndroManager().send_message(self.andro_power_message + power)
+            AndroManager().send_message(media.config.get('AUTOREMOTE_TV_POWER') + power)
         else:
-            AndroManager().send_message(self.andro_power_message + "unknown")
+            AndroManager().send_message(media.config.get('AUTOREMOTE_TV_POWER') + "unknown")
         return command_success
 
     def get_power_status(self):
