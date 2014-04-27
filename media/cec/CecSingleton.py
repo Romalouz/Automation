@@ -22,7 +22,7 @@ def log_cb(event, level, time, message):
         AndroManager().send_message(media.config.get('AUTOREMOTE_TV_POWER') + 'standby')
     if "0f:82:00:00" in message:
         AndroManager().send_message(media.config.get('AUTOREMOTE_TV_POWER') + 'on')
-    #print("CEC Log message:", message)
+    print("CEC Log message:", message)
 
 class CecSingleton(object):
     class __CecSingleton:

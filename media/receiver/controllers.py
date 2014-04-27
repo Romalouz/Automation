@@ -27,6 +27,7 @@ def set_onkyo_input(input_data):
 def set_av_input():
     if request.method == 'POST':
         if ReceiverManager().set_audio(request.form['input']):
+        #TODO Set response code
             return 'Ok'
         else:
             return "Not ok"

@@ -1,7 +1,7 @@
 #!  /usr/bin/env python
 # -*- coding: utf-8 -*-
 #   Title: androCommunication.py
-#   Package: Receiver
+#   Package: andro
 #   Author: Romain Gigault 
 from media import media
 from urllib import urlopen

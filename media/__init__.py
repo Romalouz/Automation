@@ -17,11 +17,13 @@ media.config.from_object('media.config')
 from media.receiver.controllers import receiver as receiver_module
 from media.tv.controllers import tv as tv_module
 from media.app.controllers import app as app_module
+from media.pc.controllers import pc as pc_module
 
 # Register blueprint(s)
 media.register_blueprint(receiver_module)
 media.register_blueprint(tv_module)
 media.register_blueprint(app_module)
+media.register_blueprint(pc_module)
 
 #initiate CEC
 #from media.cec import CecSingleton

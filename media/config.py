@@ -27,6 +27,7 @@ CEC_RECEIVER_AI_USB = 10
 AUTOREMOTE_TV_POWER = "TvPower =:= "
 AUTOREMOTE_KEY = ""
 AUTOREMOTE_MESSAGE_FILTER = ""
+PC_MAC_ADDRESS = ""
 
 try:
    from secret_settings import *
