@@ -10,19 +10,19 @@ from media.andro.manager import AndroManager
 
 #Callback for CEC Events
 def cb(event, *args):
-    #pass
-    print("Got event", event, "with data", args)
+    pass
+    #print("Got event", event, "with data", args)
 
 def log_cb(event, level, time, message):
     """Used to get all callback messages from cec protocol"""
     #commands = dict(tv_brodcast_standby = "0f:36")
-    #for value
+    #TODO improve catch data
     if "0f:36" in message:
         #TV is broadcasting standby command
         AndroManager().send_message(media.config.get('AUTOREMOTE_TV_POWER') + 'standby')
     if "0f:82:00:00" in message:
         AndroManager().send_message(media.config.get('AUTOREMOTE_TV_POWER') + 'on')
-    print("CEC Log message:", message)
+    #print("CEC Log message:", message)
 
 class CecSingleton(object):
     class __CecSingleton:

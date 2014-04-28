@@ -15,6 +15,8 @@ tv = Blueprint('tv', __name__, url_prefix='/tv')
 
 @tv.route('/sms', methods = ['GET','POST'])
 def sms_to_tv():
+	"""Method GET present a test form to send SMS
+	Method POST will display SMS on TV from form data"""
 	if request.method == 'GET':
 		return render_template("sms.html", title = 'SMS')
 	elif request.method == 'POST':
@@ -35,6 +37,7 @@ def sms_to_tv():
 
 @tv.route('/call', methods = ['POST'])
 def call_to_tv():
+	"""Method POST will display Call on TV from form data"""
 	#format date and time post_call(self, date='2014-02-12', time='22:20:33', rnumber='0674767730', rname='Romain', snumber='0617382221', sname='Lolo')
 	date = datetime.datetime.strptime(request.form['date'], "%m-%d-%Y")
 	time = datetime.datetime.strptime(request.form['time'], "%H.%M")
@@ -48,6 +51,8 @@ def call_to_tv():
 
 @tv.route('/power', methods = ['GET', 'POST'])
 def power():
+    """Method GET will return the current power status of TV
+    Method POST will activate or deactivate the TV"""
     resp_data = 'unknown'
     if request.method == 'GET':
         if TvManager().is_on():

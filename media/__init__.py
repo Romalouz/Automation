@@ -4,7 +4,7 @@
 #   Author: Romain Gigault
 #   Date: 21-Fev-2014
 #   Info: Communicate with devices via HTTP GET / POST requests  
-from flask import Flask, jsonify
+from flask import Flask, jsonify,render_template, url_for
 from flask_bootstrap import Bootstrap
 
 media = Flask(__name__)
@@ -27,4 +27,16 @@ media.register_blueprint(pc_module)
 
 #initiate CEC
 #from media.cec import CecSingleton
+@media.route('/api', methods = ['GET'])
+def this_func():
+    """This is a function. It does nothing."""
+    return jsonify({ 'result': '' })
 
+@media.route('/api/help', methods = ['GET'])
+def help():
+    """Print available functions."""
+    func_list = {}
+    for rule in media.url_map.iter_rules():
+        if rule.endpoint != 'static':
+            func_list[rule.rule] = media.view_functions[rule.endpoint].__doc__
+    return jsonify(func_list)

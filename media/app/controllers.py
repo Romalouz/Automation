@@ -16,6 +16,7 @@ app = Blueprint('app', __name__, url_prefix='/')
 
 @app.route('/')
 def index():
+    """Call main page to control devices"""
     #Call devices manager objects and read their status
     receiver = ReceiverManager()
     receiver.read_status()
@@ -26,6 +27,7 @@ def index():
 
 @app.route('test', methods = ['POST'])
 def test():
+    """Test route for anything"""
     #Used for test purpose
     AndroManager().send_message(request.form['message'])
     return "Done"

@@ -14,6 +14,7 @@ pc = Blueprint('pc', __name__, url_prefix='/pc')
 
 @pc.route('/wol')
 def wol():
+    """Send WOL command on network with target PC_MAC_ADDRESS from config"""
     if not(PCManager().wake_on_lan(media.config.get("PC_MAC_ADDRESS"))):
         return "OK"
     else:
