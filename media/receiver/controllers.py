@@ -25,7 +25,7 @@ def set_onkyo_input(input_data):
     ReceiverManager().command('input-selector {inp}'.format(inp=input_data))
     return 'Ok'
 
-@receiver.route('/av_input/', methods = ['POST'])
+@receiver.route('/av_input', methods = ['POST'])
 def set_av_input():
     """Set receiver input on input using CeC"""
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def set_av_input():
             return "Not ok"
 
 
-@receiver.route('/power/', methods = ['GET', 'POST'])
+@receiver.route('/power', methods = ['GET', 'POST'])
 def power():
     """Method GET return the current power status.
     Method POST activate or deactivate the receiver"""
@@ -57,7 +57,7 @@ def volume(vol):
     ReceiverManager().set_volume(vol)
     return 'Ok'
 
-@receiver.route('/volume/', methods = ['GET'])
+@receiver.route('/volume', methods = ['GET'])
 def get_volume():
     """Get current volume value of receiver"""
     return ReceiverManager().get_volume()

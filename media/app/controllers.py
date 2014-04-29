@@ -25,7 +25,7 @@ def index():
     devices = {"receiver" : receiver.__dict__, "tv" : tv.__dict__ }
     return render_template("index.html", title = 'Home', devices = devices)
 
-@app.route('test', methods = ['POST'])
+@app.route('/test/', methods = ['POST'])
 def test():
     """Test route for anything"""
     #Used for test purpose

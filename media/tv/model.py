@@ -51,7 +51,7 @@ class TvModel(object):
         error_message = "Value '{chan}' is not ".format(chan=channel_value)
         # Make sure channel_value is an int before getting the number of keys to send
         try:
-            int(channel_value)
+            channel_value = int(channel_value)
             assert(0<=channel_value<=999)
         except AssertionError:
             raise TVError(error_message + "in the channel range", 'set_channel')

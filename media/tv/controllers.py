@@ -63,3 +63,9 @@ def power():
         if TvManager().power(request.form['powerdata']):
             resp_data = request.form['powerdata']
     return jsonify(power = resp_data)
+
+@tv.route('/chanel', methods = ['GET', 'POST'])
+def chanel():
+    """Method POST will change TV chanel"""
+    TvManager().set_channel(request.form['chaneldata'])
+    return 'ok'
