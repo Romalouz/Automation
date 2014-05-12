@@ -27,12 +27,12 @@ media.register_blueprint(pc_module)
 
 #initiate CEC
 #from media.cec import CecSingleton
-@media.route('/api', methods = ['GET'])
+@media.route('/api/', methods = ['GET'])
 def this_func():
     """This is a function. It does nothing."""
     return jsonify({ 'result': '' })
 
-@media.route('/api/help', methods = ['GET'])
+@media.route('/api/help/', methods = ['GET'])
 def help():
     """Print available functions."""
     func_list = {}

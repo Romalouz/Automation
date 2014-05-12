@@ -13,7 +13,7 @@ from media.tv.manager import TvManager
 # Define the blueprint: 'tv', set its url prefix: app.url/tv
 tv = Blueprint('tv', __name__, url_prefix='/tv')
 
-@tv.route('/sms', methods = ['GET','POST'])
+@tv.route('/sms/', methods = ['GET','POST'])
 def sms_to_tv():
 	"""Method GET present a test form to send SMS
 	Method POST will display SMS on TV from form data"""
@@ -35,7 +35,7 @@ def sms_to_tv():
 #@tv.route('/power/<string:power_data>', methods = ['GET'])
 #def power(power_data):
 
-@tv.route('/call', methods = ['POST'])
+@tv.route('/call/', methods = ['POST'])
 def call_to_tv():
 	"""Method POST will display Call on TV from form data"""
 	#format date and time post_call(self, date='2014-02-12', time='22:20:33', rnumber='0674767730', rname='Romain', snumber='0617382221', sname='Lolo')
@@ -49,7 +49,7 @@ def call_to_tv():
 			                            request.form['sname'])
 	return 'Not OK' if error_found else 'OK'
 
-@tv.route('/power', methods = ['GET', 'POST'])
+@tv.route('/power/', methods = ['GET', 'POST'])
 def power():
     """Method GET will return the current power status of TV
     Method POST will activate or deactivate the TV"""
@@ -64,7 +64,7 @@ def power():
             resp_data = request.form['powerdata']
     return jsonify(power = resp_data)
 
-@tv.route('/chanel', methods = ['GET', 'POST'])
+@tv.route('/chanel/', methods = ['GET', 'POST'])
 def chanel():
     """Method POST will change TV chanel"""
     TvManager().set_channel(request.form['chaneldata'])
