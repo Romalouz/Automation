@@ -69,3 +69,9 @@ def chanel():
     """Method POST will change TV chanel"""
     TvManager().set_channel(request.form['chaneldata'])
     return 'ok'
+
+@tv.route('/key/<string:key_val>', methods = ['GET'])
+def key(key_val):
+    """Method GET will send remote key """
+    TvManager().send_key(key_val)
+    return 'ok'

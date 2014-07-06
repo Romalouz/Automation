@@ -36,7 +36,7 @@ class ReceiverManager(ReceiverModel):
         receiver = CecSingleton.CecSingleton().get_device(media.config.get("CEC_RECEIVER_OSD"))
         command = dict(dvd = "CEC_RECEIVER_AI_DVD", \
                        vcr = "CEC_RECEIVER_AI_VCR", \
-                       satellite = "CEC_RECEIVER_AI_SAT", \
+                       pc = "CEC_RECEIVER_AI_SAT", \
                        game = "CEC_RECEIVER_AI_GAM", \
                        aux = "CEC_RECEIVER_AI_AUX", \
                        tuner = "CEC_RECEIVER_AI_TUN", \
