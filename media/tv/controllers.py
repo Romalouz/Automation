@@ -60,6 +60,7 @@ def power():
         else:
             resp_data = 'standby'
     elif request.method == 'POST':
+        print(request.form)
         if TvManager().power(request.form['powerdata']):
             resp_data = request.form['powerdata']
     return jsonify(power = resp_data)
@@ -74,4 +75,4 @@ def chanel():
 def key(key_val):
     """Method GET will send remote key """
     TvManager().send_key(key_val)
-    return 'ok'
+    return jsonify(status = 'ok')
