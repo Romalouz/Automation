@@ -60,7 +60,7 @@ def volume(vol):
 @receiver.route('/volume/', methods = ['GET'])
 def get_volume():
     """Get current volume value of receiver"""
-    return ReceiverManager().get_volume()
+    return jsonify(volume = ReceiverManager().get_volume())
 
 @receiver.route('/ps3/<string:pow>', methods = ['GET'])
 def set_onkyo_ps3(pow):
