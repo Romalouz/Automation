@@ -55,7 +55,7 @@ def power():
 def volume(vol):
     """Set receiver volume to parameter vol"""
     ReceiverManager().set_volume(vol)
-    return 'Ok'
+    return jsonify(volume = vol, status = "Ok")
 
 @receiver.route('/volume/', methods = ['GET'])
 def get_volume():
