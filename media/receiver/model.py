@@ -130,6 +130,22 @@ class ReceiverModel(eiscp.eISCP):
     def set_message(self, timeout=0.1):
         self.message = self.get(timeout=timeout)
 
+    def get_audio_status(self):
+        """ Query the current selector position """
+        try:
+            selector = tuple()
+            selector = self.command('input-selector query')
+        except:
+            raise ReceiverError('Query audio failed', 'get_audio_status')
+        #Catch last element of tuple
+        last = False
+        while not(last):
+            selector = get_last_tuple_element(selector)
+            if type(selector) is not(tuple):
+                last = True
+        return selector
+
+
     def assert_status(self, result, command, status):
         asserted = False
         if result[0] == command and result[1] == status:
@@ -142,7 +158,6 @@ class ReceiverModel(eiscp.eISCP):
 
     def get_message(self):
         print(self.message)
-
 
 class ReceiverError(Exception):
     """ReceiverError is raised when an error occurs while controlling Onkyo device"""
@@ -159,3 +174,12 @@ class ReceiverError(Exception):
                    .format(method=self.method, message=self.message)
         else:
             return "{message}".format(message=self.message)
+
+
+#Helpers
+def get_last_tuple_element(tdata):
+    if type(tdata) is not(tuple):
+        raise TypeError('This function requires tuple')
+    for i, var in enumerate(tdata):
+        if i == len(tdata) - 1:
+            return var

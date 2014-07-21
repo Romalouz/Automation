@@ -25,15 +25,22 @@ def set_onkyo_input(input_data):
     ReceiverManager().command('input-selector {inp}'.format(inp=input_data))
     return 'Ok'
 
-@receiver.route('/av_input/', methods = ['POST'])
+@receiver.route('/av_input/', methods = ['GET', 'POST'])
 def set_av_input():
-    """Set receiver input on input using CeC"""
+    """Set receiver input on input using CeC with POST request. \
+    Get current AV selector with GET request."""
     if request.method == 'POST':
         if ReceiverManager().set_audio(request.form['input']):
         #TODO Set response code
             return 'Ok'
         else:
             return "Not ok"
+    elif request.method == 'GET':
+        stat = ReceiverManager().get_audio_status()
+        if type(stat) is str:
+            return(jsonify(av = stat))
+        else:
+            return(jsonify(av = 'unknown'))
 
 
 @receiver.route('/power/', methods = ['GET', 'POST'])
