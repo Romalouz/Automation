@@ -65,10 +65,10 @@ def power():
             resp_data = request.form['powerdata']
     return jsonify(power = resp_data)
 
-@tv.route('/chanel/', methods = ['GET', 'POST'])
-def chanel():
-    """Method POST will change TV chanel"""
-    TvManager().set_channel(request.form['chaneldata'])
+@tv.route('/channel/', methods = ['GET', 'POST'])
+def channel():
+    """Method POST will change TV channel"""
+    TvManager().set_channel(request.form['channeldata'])
     return 'ok'
 
 @tv.route('/key/<string:key_val>', methods = ['GET'])
