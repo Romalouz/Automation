@@ -2,9 +2,9 @@ DEBUG = True
 DEBUG_SECRET = 'romalouz'
 DEBUG_PORT = '41220'
 #Receiver related configuration
-RECEIVER_IP = "192.168.1.11"
+RECEIVER_IP = "TX-NR509.home"
 #TV related configuration
-TV_IP = "192.168.1.15"
+TV_IP = "tv.home"
 #CEC related configuration
 CEC_ADAPTER = "RPI"
 CEC_TV_ADDRESS = 0
