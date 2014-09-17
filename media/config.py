@@ -28,7 +28,7 @@ AUTOREMOTE_TV_POWER = "TvPower =:= "
 AUTOREMOTE_KEY = ""
 AUTOREMOTE_MESSAGE_FILTER = ""
 PC_MAC_ADDRESS = ""
-
+AD_PORT_VAL = "/dev/ttyACM0"
 try:
    from secret_settings import *
 except ImportError:
