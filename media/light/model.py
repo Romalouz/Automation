@@ -17,12 +17,22 @@ class LightModel():
     def __exit__(self):
         self.iface.close()
 
-    def switch_status(self, on_off):
+    def switch_status(self,device, on_off):
         error = False
+        print device
+        print on_off
+        if device != 'bedRoom' and device != 'livingRoom':
+            return 'bad device'
         if on_off == 'on':
-            self.iface.write('1')
+            if device == 'bedRoom':
+                self.iface.write('1')
+            elif device == 'livingRoom':
+                self.iface.write('3')
         elif on_off == 'off':
-            self.iface.write('0')
+            if device == 'bedRoom':
+                self.iface.write('0')
+            elif device == 'livingRoom':
+                self.iface.write('2')
         else:
             error = True
         if error:

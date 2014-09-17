@@ -12,12 +12,12 @@ from media.light.model import LightModel
 # Define the blueprint: 'light', set its url prefix: app.url/light
 light = Blueprint('light', __name__, url_prefix='/light')
 
-@light.route('/<string:status>', methods = ['GET'])
-def power_light(status):
+@light.route('/<string:device>/<string:status>', methods = ['GET'])
+def power_light(device,status):
     """Set light on or off"""
     #TODO fix broken pipe error
     myLight = LightModel(media.config.get("AD_PORT_VAL"))
-    data = myLight.switch_status(status)
+    data = myLight.switch_status(device,status)
     del myLight
     return data
     
