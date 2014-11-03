@@ -50,6 +50,7 @@ class ArduinoThread(threading.Thread):
         self.iface_address = iface_address
         self.timer = timer
         self.last_detected = 0 #Initialize last_detected
+        self.last_message_sent = 0 
         day_str = time.strftime("%d-%b-%Y",time.localtime())
         self.sunrise = time.strptime(day_str + " 08:00", "%d-%b-%Y %H:%M")
         self.sunset = time.strptime(day_str + " 20:00", "%d-%b-%Y %H:%M")
@@ -73,28 +74,30 @@ class ArduinoThread(threading.Thread):
                 #if programs falls here, it means that did not return the serial link, try to bound it again
                 data = ''
                 as_read,_,_ = select.select([arduino_serial],[],[],7)
-                print("Trying to bound again with Serial")
+                #print("Trying to bound again with Serial")
                 pass
             if data != '':
                 self.anybody_home = True
                 self.last_detected = time.time()
-                print("Someone detected at " + time.strftime("%d-%b-%Y %H:%M",time.localtime(self.last_detected)))
+                #print("Someone detected at " + time.strftime("%d-%b-%Y %H:%M",time.localtime(self.last_detected)))
             if self.anybody_home:
-                if (time.time() - self.last_detected > self.timer*60):#TODO correct this, it should send a signal when someone is detected and not wait the timer
-                    print("Sending message to Andro...")
-                    AndroManager().send_message('Someone home at ' + time.strftime("%d-%b-%Y %H:%M",time.localtime(self.last_detected)))
+                if (time.time() - self.last_message_sent > self.timer*60):#TODO correct this, it should send a signal when someone is detected and not wait the timer
+                    #print("Sending message to Andro...")
+                    AndroManager().send_notification(title='Someone%20at%20home', text = "Detected%20at%20" + time.strftime("%d-%b-%Y---%H:%M",time.localtime(self.last_detected)),id="sbdy_detected",led_color="red",led_on="5000",led_off="2000")
                     self.anybody_home = False
-                if self.check_sunrise_sunset():
-                    if not light_triggered:
-                        #Trigger light and remember command
-                        print ("Triggering light...")
-                        ArduinoModel(self.iface_address).switch_status("livingRoom","on")
-                        light_triggered = True
-                if light_triggered and (time.time() - self.last_detected > 1*60):
-                    print ("Killing light...")
-                    ArduinoModel(self.iface_address).switch_status("livingRoom","off")
-                    light_triggered = False
-                    self.anybody_home = False
+                    self.last_message_sent = time.time()
+                    self.last_detected = 0
+                #if self.check_sunrise_sunset():
+                #    if not light_triggered:
+                #        #Trigger light and remember command
+                #        print ("Triggering light...")
+                #        ArduinoModel(self.iface_address).switch_status("livingRoom","on")
+                #        light_triggered = True
+                #if light_triggered and (time.time() - self.last_detected > 1*60):
+                #    print ("Killing light...")
+                #    ArduinoModel(self.iface_address).switch_status("livingRoom","off")
+                #    light_triggered = False
+                #    self.anybody_home = False
                 #TODO create a switch to avoid lightening up if it is not required
 
             #Exit the loop if thread was asked to stop
