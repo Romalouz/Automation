@@ -29,7 +29,7 @@ AUTOREMOTE_KEY = ""
 AUTOREMOTE_MESSAGE_FILTER = ""
 PC_MAC_ADDRESS = ""
 AD_PORT_VAL = "/dev/ttyACM0"
-DETECTION_TIME = 2 #Time in minutes before we consider that detected person has left
+DETECTION_TIME = 120 #Time in minutes before we consider that detected person has left
 try:
    from secret_settings import *
 except ImportError:
