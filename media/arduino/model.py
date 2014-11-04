@@ -79,6 +79,9 @@ class ArduinoThread(threading.Thread):
             if data != '':
                 self.anybody_home = True
                 self.last_detected = time.time()
+            else:
+                #Clear the flag to avoid getting old notification 
+                self.anybody_home = False
                 #print("Someone detected at " + time.strftime("%d-%b-%Y %H:%M",time.localtime(self.last_detected)))
             if self.anybody_home:
                 if (time.time() - self.last_message_sent > self.timer*60):#TODO correct this, it should send a signal when someone is detected and not wait the timer
