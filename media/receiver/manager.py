@@ -45,7 +45,7 @@ class ReceiverManager(ReceiverModel):
                        net = "CEC_RECEIVER_AI_NET", \
                        usb = "CEC_RECEIVER_AI_USB")
         if command.has_key(audio_input):
-            command_success  = receiver.set_audio_input(media.config.get(command[audio_input]))
+            command_success  = receiver.set_av_input(media.config.get(command[audio_input]))
         return command_success
 
 

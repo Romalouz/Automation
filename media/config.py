@@ -4,7 +4,7 @@ DEBUG_PORT = '41220'
 #Receiver related configuration
 RECEIVER_IP = "TX-NR509.home"
 #TV related configuration
-TV_IP = "tv.home"
+TV_IP = "tvsalon.home"
 #CEC related configuration
 CEC_ADAPTER = "RPI"
 CEC_TV_ADDRESS = 0
