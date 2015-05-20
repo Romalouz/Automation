@@ -10,7 +10,7 @@ if __name__ == '__main__':
     sleep(1)
     if arduino_thread.isAlive():
         print('Thread is running')
-        WSGIServer(media).run()
+    	WSGIServer(media).run()
     #Kill thread
     arduino_thread.stop()
     sleep(1)
